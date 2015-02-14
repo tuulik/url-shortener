@@ -6,14 +6,14 @@
 
     {!! Form::open(['route' => 'urls.store']) !!}
 
-        {!! Form::label('url', 'URL:') !!}
-        {!! Form::text('url', null) !!}
+        {!! Form::label('link', 'URL:') !!}
+        {!! Form::text('link', null) !!}
         {!! Form::submit('Shorten url') !!}
 
     {!! Form::close() !!}
 
     @foreach ($urls as $url)
-        <li>{{$url->url}} {{$url->new_url}}</li>
+        <li>{{$url->url}} {{$url->code}}</li>
     @endforeach
 
 @stop

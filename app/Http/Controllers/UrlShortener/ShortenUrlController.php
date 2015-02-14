@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Url;
-use App\Constants;
+
 
 class ShortenUrlController extends Controller {
 
@@ -18,14 +18,15 @@ class ShortenUrlController extends Controller {
 
     function store(Request $request, Url $url) {
         $NEWURLPATH = 'localhost/url-shortener/public/';
-        $url->url = $request->get('url');
-        $url->new_url = str_random(8);
+        $url->url = $request->get('link');
+        $url->code = str_random(8);
         $url->save();
         return redirect()->route('urls.create');
     }
 
     function show($code) {
         $url = Url::whereCode($code)->first();
-        dd($url);
+        return redirect()->away($url->url, 301);
     }
 }
+
