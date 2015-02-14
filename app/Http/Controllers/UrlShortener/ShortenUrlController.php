@@ -25,6 +25,7 @@ class ShortenUrlController extends Controller {
     }
 
     function show($code) {
-        return
+        $url = Url::whereCode($code)->first();
+        dd($url);
     }
 }
