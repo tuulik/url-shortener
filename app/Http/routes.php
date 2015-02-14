@@ -1,5 +1,7 @@
 <?php
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -11,11 +13,6 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+$router->resource('urls', 'UrlShortener\ShortenUrlController', ['only' => ['create', 'index', 'store', 'show']]);
 
-Route::get('home', 'HomeController@index');
-
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
+$router->get('/{code}', 'UrlShortener\ShortenUrlController@show');
