@@ -13,6 +13,9 @@
 |
 */
 
-$router->resource('urls', 'UrlShortener\ShortenUrlController', ['only' => ['create', 'index', 'store', 'show']]);
+$router->get('/', 'UrlShortener\ShortenUrlController@create');
+
+$router->resource('urls', 'UrlShortener\ShortenUrlController',
+    ['only' => ['create', 'store', 'show']]);
 
 $router->get('/{code}', 'UrlShortener\ShortenUrlController@show');
