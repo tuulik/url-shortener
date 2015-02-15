@@ -4,7 +4,7 @@
 
     <h1>Shorten Link</h1>
 
-    {!! Form::open(['route' => 'urls.store']) !!}
+    {!! Form::open(['route' => 'shorten']) !!}
 
         {!! Form::label('link', 'URL:') !!}
         {!! Form::text('link', null) !!}

@@ -13,6 +13,8 @@
 |
 */
 
+$router->post('/shorten', ['as' => 'shorten', 'uses' => 'UrlShortener\ShortenUrlController@store']);
+
 $router->get('/', 'UrlShortener\ShortenUrlController@create');
 
 $router->resource('urls', 'UrlShortener\ShortenUrlController',
