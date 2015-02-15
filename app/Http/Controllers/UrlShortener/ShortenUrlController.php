@@ -15,7 +15,7 @@ class ShortenUrlController extends Controller {
      * @return \Illuminate\View\View
      */
     function create() {
-        return view('UrlShortener\newurl');
+        return view('UrlShortener/newurl');
     }
 
     /**
