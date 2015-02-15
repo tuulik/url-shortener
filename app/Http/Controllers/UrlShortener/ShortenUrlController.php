@@ -17,7 +17,9 @@ class ShortenUrlController extends Controller {
 
     function store(Request $request, Url $url) {
         $url->url = $request->get('link');
-        $code = str_random(8);
+        do {
+            $code = str_random(8);
+        } while(!Url::whereCode($code)->get()->isEmpty());
         $url->code = $code;
         $url->save();
         return response($code, 200)->header('Content-type', 'text/plain');
