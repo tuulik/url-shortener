@@ -25,6 +25,8 @@ class ShortenUrlController extends Controller {
 
     function show($code) {
         $url = Url::whereCode($code)->first();
+        if($url === null)
+            return response('Not Found (404)', 404);
         return redirect()->away($url->url, 301);
     }
 }
