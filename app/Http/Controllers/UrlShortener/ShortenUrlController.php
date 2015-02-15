@@ -12,16 +12,15 @@ class ShortenUrlController extends Controller {
 
     //
     function create() {
-        $urls = Url::get();
-        return view('UrlShortener\newurl', compact('urls'));
+        return view('UrlShortener\newurl');
     }
 
     function store(Request $request, Url $url) {
-        $NEWURLPATH = 'localhost/url-shortener/public/';
         $url->url = $request->get('link');
-        $url->code = str_random(8);
+        $code = str_random(8);
+        $url->code = $code;
         $url->save();
-        return redirect()->route('urls.create');
+        return response($code, 200)->header('Content-type', 'text/plain');
     }
 
     function show($code) {
