@@ -17,11 +17,23 @@
 $router->post('/shorten', ['as' => 'shorten', 'uses' => 'UrlShortener\ShortenUrlController@store']);
 
 /* Reach form to create a new shortened link at the public root. */
-$router->get('/', 'UrlShortener\ShortenUrlController@create');
+$router->get('/', ['middleware' => 'auth', 'uses' => 'UrlShortener\ShortenUrlController@create']);
+
+/*$router->get('/list', ['middleware' => 'auth', 'uses' => 'UrlShortener\ShortenUrlController@list']);*/
 
 /* Resource controllers for url model. */
 $router->resource('urls', 'UrlShortener\ShortenUrlController',
     ['only' => ['create', 'store', 'show']]);
 
+$router->get('/register', 'Auth\AuthController@getRegister');
+$router->post('/register', 'Auth\AuthController@postRegister');
+
+$router->get('/login', 'Auth\AuthController@getLogin');
+$router->post('/login', 'Auth\AuthController@postLogin');
+$router->get('/logout', 'Auth\AuthController@getLogout');
+
 /* Use show method to handle request for a specific id. */
 $router->get('/{code}', 'UrlShortener\ShortenUrlController@show');
+
+
+
