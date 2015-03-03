@@ -19,7 +19,7 @@ $router->post('/shorten', ['as' => 'shorten', 'uses' => 'UrlShortener\ShortenUrl
 /* Reach form to create a new shortened link at the public root. */
 $router->get('/', ['middleware' => 'auth', 'uses' => 'UrlShortener\ShortenUrlController@create']);
 
-/*$router->get('/list', ['middleware' => 'auth', 'uses' => 'UrlShortener\ShortenUrlController@list']);*/
+$router->get('/listURLs', ['middleware' => 'auth', 'uses' => 'UrlShortener\ShortenUrlController@listURLs']);
 
 /* Resource controllers for url model. */
 $router->resource('urls', 'UrlShortener\ShortenUrlController',

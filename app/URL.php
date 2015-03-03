@@ -3,5 +3,5 @@
 use Illuminate\Database\Eloquent\Model;
 
 class Url extends Model {
-    protected $fillable = ['url', 'new_url'];
+    protected $fillable = ['url'];
 }

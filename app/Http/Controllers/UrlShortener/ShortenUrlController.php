@@ -1,11 +1,13 @@
 <?php namespace App\Http\Controllers\UrlShortener;
 
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
 use App\Url;
+use Illuminate\Support\Facades\Auth;
 
 
 class ShortenUrlController extends Controller {
@@ -45,6 +47,18 @@ class ShortenUrlController extends Controller {
         if($url === null)
             return response('Not Found (404)', 404);
         return redirect()->away($url->url, 301);
+    }
+
+  /**
+   * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+   */
+    function listURLs() {
+        if(Auth::user()->role == 'admin') {
+            $urls = Url::all();
+            return view('URLShortener\listURLs', ['urls' => $urls]);
+        }
+        else
+            return 'Forbidden (403)';
     }
 }
 
