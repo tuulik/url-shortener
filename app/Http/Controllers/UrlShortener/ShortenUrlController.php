@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Url;
 use Illuminate\Support\Facades\Auth;
+use App\Rbac;
 
 
 class ShortenUrlController extends Controller {
@@ -17,7 +18,9 @@ class ShortenUrlController extends Controller {
      * @return \Illuminate\View\View
      */
     function create() {
-        return view('UrlShortener/newurl');
+        if(Rbac::hasAccess(Auth::user(), 'create')) {
+            return view('UrlShortener/newurl');
+        }
     }
 
     /**
@@ -26,14 +29,16 @@ class ShortenUrlController extends Controller {
      * @return mixed
      */
     function store(Request $request, Url $url) {
-        $url->url = $request->get('link');
-        /* Generate new id for the link if the id is already in the database. */
-        do {
-            $code = str_random(8);
-        } while(!Url::whereCode($code)->get()->isEmpty());
-        $url->code = $code;
-        $url->save();
-        return response($code, 200)->header('Content-type', 'text/plain');
+        if(Rbac::hasAccess(Auth::user(), 'store')) {
+            $url->url = $request->get('link');
+            /* Generate new id for the link if the id is already in the database. */
+            do {
+                $code = str_random(8);
+            } while (!Url::whereCode($code)->get()->isEmpty());
+            $url->code = $code;
+            $url->save();
+            return response($code, 200)->header('Content-type', 'text/plain');
+        }
     }
 
     /**
@@ -53,7 +58,7 @@ class ShortenUrlController extends Controller {
    * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
    */
     function listURLs() {
-        if(Auth::user()->role == 'admin') {
+        if(Rbac::hasAccess(Auth::user(), 'listURLs')) {
             $urls = Url::all();
             return view('URLShortener\listURLs', ['urls' => $urls]);
         }
