@@ -12,6 +12,3 @@ and the controller used to handle the requests is at /app/Http/Controllers/UrlSh
 The view for creating a new shortened link is at /resources/views/UrlShortener/newurl.blade.php.
 
 Authorization: Only registered users can add new URLs. The admin user can list all the saved URLs and their codes.
-
-Earlier version (without the authorization) of the service is running online at
-http://ec2-52-10-7-168.us-west-2.compute.amazonaws.com/url-shortener/public/.
